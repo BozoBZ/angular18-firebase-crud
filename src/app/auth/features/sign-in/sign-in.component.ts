@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './sign-in.component.html',
-  styles: ``
+  styles: ``,
 })
-export class SignInComponent {
-
-}
+export default class SignInComponent {}
