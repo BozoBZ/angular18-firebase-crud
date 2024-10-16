@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './task-list.component.html',
-  styles: ``
+  styles: ``,
 })
-export class TaskListComponent {
-
-}
+export default class TaskListComponent {}
