@@ -13,18 +13,6 @@ export const appConfig: ApplicationConfig = {
     provideFirebaseApp(() =>
       initializeApp({
         projectId: 'ng-tasks-18',
-        appId: '1:208192070375:web:fbe6dd7c32dec42575f842',
-        storageBucket: 'ng-tasks-18.appspot.com',
-        apiKey: 'AIzaSyDOltR7VprIePkdNHJ6Klg7keHUbO6U4ro',
-        authDomain: 'ng-tasks-18.firebaseapp.com',
-        messagingSenderId: '208192070375',
-      })
-    ),
-    provideAuth(() => getAuth()),
-    provideFirestore(() => getFirestore()),
-    provideFirebaseApp(() =>
-      initializeApp({
-        projectId: 'ng-tasks-18',
         appId: '1:208192070375:web:13844e9ab9fe6a8a75f842',
         storageBucket: 'ng-tasks-18.appspot.com',
         apiKey: 'AIzaSyDOltR7VprIePkdNHJ6Klg7keHUbO6U4ro',
