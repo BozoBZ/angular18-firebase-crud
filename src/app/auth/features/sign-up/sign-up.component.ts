@@ -6,11 +6,13 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { AuthService } from '../../data-access/auth.service';
+import { toast } from 'ngx-sonner';
 
-interface FormSignUp {
-  email: FormControl<string | null>;
-  password: FormControl<string | null>;
-}
+// interface FormSignUp {
+//   email: FormControl<string | null>;
+//   password: FormControl<string | null>;
+// }
 
 @Component({
   selector: 'app-sign-up',
@@ -21,6 +23,7 @@ interface FormSignUp {
 })
 export default class SignUpComponent {
   private _formBuilder = inject(NonNullableFormBuilder);
+  private _authService = inject(AuthService);
 
   isRequired(field: 'email' | 'password') {
     return isRequired(field, this.form);
@@ -38,14 +41,19 @@ export default class SignUpComponent {
     password: this._formBuilder.control('', Validators.required),
   });
 
-  submit() {
-    // console.log(this.form.getRawValue());
+  async submit() {
     if (this.form.invalid) return;
 
-    const { email, password } = this.form.value;
+    try {
+      const { email, password } = this.form.value;
 
-    if (!email || !password) return;
+      if (!email || !password) return;
 
-    console.log({ email, password });
+      await this._authService.signUp({ email, password });
+
+      toast.success('User created correctly');
+    } catch (error) {
+      toast.error('Error happened');
+    }
   }
 }
