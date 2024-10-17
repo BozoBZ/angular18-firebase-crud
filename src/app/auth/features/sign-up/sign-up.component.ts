@@ -8,22 +8,24 @@ import {
 } from '@angular/forms';
 import { AuthService } from '../../data-access/auth.service';
 import { toast } from 'ngx-sonner';
+import { Router, RouterLink } from '@angular/router';
 
-// interface FormSignUp {
-//   email: FormControl<string | null>;
-//   password: FormControl<string | null>;
-// }
+interface FormSignUp {
+  email: FormControl<string | null>;
+  password: FormControl<string | null>;
+}
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './sign-up.component.html',
   styles: ``,
 })
 export default class SignUpComponent {
   private _formBuilder = inject(NonNullableFormBuilder);
   private _authService = inject(AuthService);
+  private _router = inject(Router);
 
   isRequired(field: 'email' | 'password') {
     return isRequired(field, this.form);
@@ -33,7 +35,7 @@ export default class SignUpComponent {
     return hasEmailError(this.form);
   }
 
-  form = this._formBuilder.group({
+  form = this._formBuilder.group<FormSignUp>({
     email: this._formBuilder.control('', [
       Validators.required,
       Validators.email,
@@ -52,6 +54,8 @@ export default class SignUpComponent {
       await this._authService.signUp({ email, password });
 
       toast.success('User created correctly');
+
+      this._router.navigateByUrl('/tasks');
     } catch (error) {
       toast.error('Error happened');
     }
